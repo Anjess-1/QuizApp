@@ -25,4 +25,36 @@ exports.createQuestion = (req, res) => {
         "code": 200,
         "message": "Question created successfully"
     })
+} 
+
+exports.getQuestion = (req, res) => {
+    if(!req.query.subject) {
+        questionModel.aggregate([
+            {
+                $match: {
+                    level : req.query.level
+                }
+            },
+            {
+                $sample: {
+                    size : 1
+                }
+            }
+        ])
+        .then((result) => {
+            res.status(200).json({
+                "code" : 200,
+                "data" : result
+            })
+        })
+        .catch((err) => {
+            console.log(`Erroe: ${err}`)
+            res.status(500).json({
+                "code": 500,
+                "message": "Internal Server Error"
+            })
+        })
+        return res;
+    }
+
 }

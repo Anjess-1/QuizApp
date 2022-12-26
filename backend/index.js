@@ -1,11 +1,11 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const mongo = require("./db/db");
-
+const cors = require('cors');
 const app = express();
 
 app.use(bodyParser.json())
-
+app.use(cors());  
 mongo;
 
 app.get('/', (req, res) => {
