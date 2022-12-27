@@ -8,7 +8,7 @@ let quizSchema = new mongoose.Schema({
     },
     link: {
         type: String,
-        required: true
+        required: false
     },
     status: {
         type: String,

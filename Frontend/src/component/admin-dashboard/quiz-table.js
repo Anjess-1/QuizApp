@@ -5,12 +5,13 @@ import { Link } from 'react-router-dom'
 export default function QuizTable() {
     const [quizData, setQuizData] = useState([]);
     useEffect(() => {
-        let adminId = 2
-        let header = {
-            'Content-Type': 'application/json;charset=utf-8',
-            "Access-Control-Allow-Origin": "*"
-        }
-        axios.get(`http://localhost:3001/quiz/getQuizByAdminId/${adminId}`, { header })
+        let headers = {
+            "Content-Type": 'application/json;charset=utf-8',
+            "Access-Control-Allow-Origin": "*",
+            "jwt": sessionStorage.getItem('access-token')
+        };
+        console.log(headers)
+        axios.get(`http://localhost:3001/quiz/getQuizByAdminId`, { headers })
             .then((response) => {
                 console.log(response.data.data);
                 setQuizData(response.data.data);

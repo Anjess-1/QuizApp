@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import QuesBox from './ques-box'
 import ScoreBox from './score-box'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function Game() {
     const [score, setScore] = useState(0)
     const [difficultyLevel, setDifficultyLevel] = useState(5)
     const [quesNum, setQuesNum] = useState(1)
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(!sessionStorage.getItem('access-token')){
+            navigate('/user')
+        }
+    }, [])
 
     const markCorrectAns = () => {
         setDifficultyLevel((prevState) => {

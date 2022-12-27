@@ -5,6 +5,7 @@ import LoginForm from './component/admin/login-form';
 import './app.css';
 import LandingPage from './component/user/landing-page';
 import Game from './component/game';
+import UserPage from './component/user';
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
     <Routes>
       <Route index element={<LoginForm /> } />
       <Route path='admin-dashboard' element={< AdminDashboard/>} />
-      <Route path='quizGame' element={<LandingPage />}/>
+      <Route path='user' element={<UserPage />}/>
       <Route path='gamePage' element={<Game />} />
     </Routes>
     </BrowserRouter>

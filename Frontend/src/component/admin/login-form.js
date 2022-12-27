@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 export default function LoginForm() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const navigate = useNavigate();
+
 
     const submit = () => {
         let header = {
@@ -20,7 +22,9 @@ export default function LoginForm() {
             .then((response) => {
                 if (response &&
                     response.status == 200) {
-
+                    console.log(response)
+                    sessionStorage.setItem('access-token', response.data.token)
+                    navigate('/admin-dashboard')
                 }
             })
             .catch((err) => {
@@ -46,7 +50,7 @@ export default function LoginForm() {
                     onChange={(e) => { setPassword(e.target.value) }}
                 />
                 <br /> <br />
-                <button className= "button" onClick={() => submit()}>Submit</button>
+                <button className="button" onClick={() => submit()}>Submit</button>
                 <Link to={LoginForm} />
             </div>
         </>

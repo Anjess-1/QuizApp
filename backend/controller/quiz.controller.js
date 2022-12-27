@@ -12,7 +12,7 @@ exports.createQuiz = (req, res, next) => {
         const quiz = new quizModel({
             quizTitle: req.body.quizTitle,
             link: req.body.link,
-            status: "req.body.status",
+            status: "ACTIVE",
             adminId: res.locals.jwtPayload.adminId,
             subject: req.body.subject,
         })
@@ -22,11 +22,12 @@ exports.createQuiz = (req, res, next) => {
                 console.log("Quiz created successfully")
             })
             .catch((err) => {
-                utils.createCustomError(500, "Internal Server Error")
+                next(err)
             })
         return res.status(200).json({
             "code": 200,
-            "message": "Quiz created successfully"
+            "message": "Quiz created successfully",
+            "quizId": quiz._id
         })
     } catch (error) {
         next(error)
@@ -37,7 +38,7 @@ exports.createQuiz = (req, res, next) => {
 exports.quizByAdminId = (req, res, next) => {
     try {
         quizModel.find({
-            adminId: req.params.adminId
+            adminId: res.locals.jwtPayload.adminId
         })
             .then((result) => {
                 res.status(200).json({
@@ -46,7 +47,7 @@ exports.quizByAdminId = (req, res, next) => {
                 })
             })
             .catch((err) => {
-                utils.createCustomError(500, "Internal Server Error")
+                next(err)
             })
         return res
 

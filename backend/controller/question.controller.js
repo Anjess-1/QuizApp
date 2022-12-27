@@ -17,47 +17,47 @@ exports.createQuestion = (req, res, next) => {
                 console.log("Question created successfully")
             })
             .catch((err) => {
-                utils.createCustomError(500, "Internal Server Error")
+                next(err)
             })
         return res.status(200).json({
             "code": 200,
             "message": "Question created successfully"
         })
     } catch (error) {
-      next(error)  
+        next(error)
     }
-    
-} 
+
+}
 
 exports.getQuestion = (req, res, next) => {
     try {
-        if(!req.query.subject) {
+        if (!req.query.subject) {
             questionModel.aggregate([
                 {
                     $match: {
-                        level : req.query.level
+                        level: req.query.level
                     }
                 },
                 {
                     $sample: {
-                        size : 1
+                        size: 1
                     }
-                } 
+                }
             ])
-            .then((result) => {
-                res.status(200).json({
-                    "code" : 200,
-                    "data" : result
+                .then((result) => {
+                    res.status(200).json({
+                        "code": 200,
+                        "data": result
+                    })
                 })
-            })
-            .catch((err) => {
-                utils.createCustomError(500, "Internal Server Error")
-            })
+                .catch((err) => {
+                    next(err)
+                })
             return res;
         }
-    
+
     } catch (error) {
         next(error)
     }
-  
+
 }

@@ -14,20 +14,23 @@ export default function CreateQuiz(props) {
     const createQuizLink = () => {
         let headers = {
             "Content-Type": 'application/json;charset=utf-8',
-            "Access-Control-Allow-Origin": "*"
+            "Access-Control-Allow-Origin": "*",
+            "jwt": sessionStorage.getItem('access-token')
         };
         let payload = {
             "title": title,
             "subject": subject,
-            "link": link
         }
         axios.post(`http://localhost:3001/quiz`, payload, {headers})
         .then((response) => {
-            let quizId = title;
-            //let quizId = response.data.quizId;
-            let link = `http://localhost:3000/quizGame?quizId=${quizId}`;
+            console.log(response)
+            let quizId = response.data.quizId;
+            if(response.status==200) {
+            let link = `http://localhost:3000/user?quizId=${quizId}`;
+            console.log('beforeshowlink')
             props.showLink(link);
             props.closeQuiz();
+            }
         })
     }
     return (

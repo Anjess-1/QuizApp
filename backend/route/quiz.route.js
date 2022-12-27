@@ -9,7 +9,7 @@ module.exports = app => {
         quizControler.createQuiz
     )
 
-    app.get("/quiz/getQuizByAdminId/:adminId",
+    app.get("/quiz/getQuizByAdminId",
     middleware.validateToken,
     middleware.validateAsAdmin, 
     quizControler.quizByAdminId)

@@ -14,7 +14,8 @@ export default function AddQes(props) {
     const addQueInDb = () => {
         let headers = {
             "Content-Type": 'application/json;charset=utf-8',
-            "Access-Control-Allow-Origin": "*"
+            "Access-Control-Allow-Origin": "*",
+            "jwt": sessionStorage.getItem('access-token')
         };
         let payload = {
             "question": question,
@@ -29,6 +30,7 @@ export default function AddQes(props) {
             .then((response) => {
                 console.log(response)
             })
+            props.closeQues()
     }
     console.log(option)
     const addAnswerValue = (e, index) => {

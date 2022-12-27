@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import axios from 'axios';
 
 export default function LandingPage() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [email, setEmail] = useState("")
-
-    useEffect(() => {
-        const quizId = searchParams.get('quizId')    
-        sessionStorage.setItem('quizId', quizId)
-    }, [])
+    const navigate = useNavigate()
 
     const createUser = () => {
         let headers = {
@@ -20,9 +16,12 @@ export default function LandingPage() {
             "name": "name",
             "email": email
         }
-        axios.post(`http://localhost:3001/user`, payload, {headers})
+        axios.post(`http://localhost:3001/user/login`, payload, {headers})
         .then((response) => {
-            console.log(response)
+            if(response.status==200){
+                sessionStorage.setItem('access-token', response.data.token);
+                navigate('/gamePage')
+            }
         })
     }
     

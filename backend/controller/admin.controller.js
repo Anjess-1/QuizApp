@@ -73,6 +73,9 @@ exports.adminLogin = (req, res, next) => {
             }
             console.log("Admin LogIn Successfully")
         })
+        .catch((error) => {
+            next(error);
+        })
     return res;
     } 
     catch (error) {

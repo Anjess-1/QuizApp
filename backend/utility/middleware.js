@@ -1,10 +1,12 @@
 const authManager = require('./auth')
 const utils = require('./utils')
 
-exports.validateToken = (req, res, next) => {
+exports.validateToken = (req, res, next) => {   
     try {
         const getTokenValue = req.headers.jwt;
+        console.log(req.headers)
         const validateResult = authManager.validateToken(getTokenValue)
+        console.log(validateResult)
         if (!validateResult) {
             utils.createCustomError(403, "jwt is invalid/expired")
         }
