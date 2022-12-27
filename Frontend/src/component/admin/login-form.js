@@ -28,6 +28,7 @@ export default function LoginForm() {
                 }
             })
             .catch((err) => {
+                alert("Email/Password is incorrect!")
             })
     }
 

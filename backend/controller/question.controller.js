@@ -1,4 +1,4 @@
-const questionModel = require('../model/question.model');
+    const questionModel = require('../model/question.model');
 const utils = require('../utility/utils')
 
 exports.createQuestion = (req, res, next) => {

@@ -3,15 +3,20 @@ import QuesBox from './ques-box'
 import ScoreBox from './score-box'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import GameOver from './game-over'
+import axios from 'axios'
 
 export default function Game() {
     const [score, setScore] = useState(0)
     const [difficultyLevel, setDifficultyLevel] = useState(5)
     const [quesNum, setQuesNum] = useState(1)
+    const [isScoreSave, setIsScoreSave] = useState(false)
+
     const navigate = useNavigate();
 
+
     useEffect(() => {
-        if(!sessionStorage.getItem('access-token')){
+        if (!sessionStorage.getItem('access-token')) {
             navigate('/user')
         }
     }, [])
@@ -41,8 +46,28 @@ export default function Game() {
         if (difficultyLevel > 0 && difficultyLevel <= 10) {
             if (quesNum <= 10)
                 return true;
-        } else
+        } else {
+            if (!isScoreSave) {
+                let header = {
+                    "Content-Type": 'application/json;charset=utf-8',
+                    "Access-Control-Allow-Origin": "*",
+                    "jwt": sessionStorage.getItem('access-token')
+                }
+                let payload = {
+                    "score": score,
+                    "quizId": sessionStorage.getItem(),
+                    "quesAttempted": quesNum
+                }
+                axios.post(`http://localhost:3001/user/postScore`, payload, { header })
+                    .then((response) => {
+                        console.log(payload.score)
+                        console.log(response)
+                    })
+                setIsScoreSave(true)
+            }
             return false;
+        }
+
     }
     return (
         <div>
@@ -59,7 +84,7 @@ export default function Game() {
                         markCorrectAns={markCorrectAns}
                         markIncorrectAns={markIncorrectAns}
                     /> : <div>
-                        Game Over!
+                        <GameOver />
                     </div>
                 }
             </div>
