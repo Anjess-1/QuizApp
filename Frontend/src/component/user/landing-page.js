@@ -27,14 +27,14 @@ export default function LandingPage() {
     }
     
     return(
-        <div>
+        <div className='box'>
             <input type="text"
             placeholder='Enter Email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             />
             <br /><br />
-            <button onClick={() => createUser()}>Submit</button>
+            <button className ='button' onClick={() => createUser()}>Submit</button>
         </div>
     )
 }

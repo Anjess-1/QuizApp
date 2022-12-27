@@ -1,23 +1,25 @@
 const userModel = require("../model/user.model")
+const utils = require('../utility/utils')
 
-exports.createUser = (req, res) => {
-    const user = new userModel({
-        name: req.body.name,
-        email: req.body.email
-    })
-    user.save()
-        .then(() => {
-            console.log("User created successfully")
+exports.createUser = (req, res, next) => {
+    try {
+        const user = new userModel({
+            name: req.body.name,
+            email: req.body.email
         })
-        .catch((err => {
-            console.log(`Error: ${err}`);
-            return res.status(500).json({
-                "code": 500,
-                "message": "Internal Server Error"
+        user.save()
+            .then(() => {
+                console.log("User created successfully")
             })
-        }))
-    return res.status(200).json({
-        "code": 200,
-        "message": "Admin Created Successfully"
-    })
+            .catch((err => {
+                utils.createCustomError(500, "Internal Server Error")
+            }))
+        return res.status(200).json({
+            "code": 200,
+            "message": "User Created Successfully"
+        })
+    } catch (error) {
+        next(error)
+    }
+
 }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 
+
 export default function LoginForm() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -28,7 +29,7 @@ export default function LoginForm() {
 
     return (
         <>
-            <div>
+            <div className="box">
                 <label>Enter Email</label>
                 <br /> <br />
                 <input type="text"
@@ -45,7 +46,7 @@ export default function LoginForm() {
                     onChange={(e) => { setPassword(e.target.value) }}
                 />
                 <br /> <br />
-                <button onClick={() => submit()}>Submit</button>
+                <button className= "button" onClick={() => submit()}>Submit</button>
                 <Link to={LoginForm} />
             </div>
         </>

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import './admin.css'
+
 
 import { Link } from 'react-router-dom'
 import CreateLink from './ create-link';
@@ -42,10 +44,10 @@ export default function TopBox() {
             closeLink={closeLink}
             />
 
-            <div>
-                <h1>Hello Admin</h1>
-                <button variant="primary" onClick={showQuiz}>Create Quiz</button>
-                <button variant="primary" onClick={addQues}>Add Question</button>
+            <div className='box'>
+                <h1>Hello Admin!</h1>
+                <button variant="primary" className='button' onClick={showQuiz}>Create Quiz</button>
+                <button variant="primary" className='button' onClick={addQues}>Add Question</button>
             </div>
         </div>
     )

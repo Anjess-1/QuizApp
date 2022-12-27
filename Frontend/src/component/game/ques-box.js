@@ -33,10 +33,10 @@ export default function QuesBox(props) {
     }
 
     return (
-        <div>
+        <div className='box'>
             <h5>Q:</h5>
             <p>{question}</p>
-            <div>
+            <div className='radio-button'>
                 <input type="radio"
                     value={option[0]}
                     checked={userOption === option[0]}
@@ -45,7 +45,7 @@ export default function QuesBox(props) {
                 />
                 <label for={option[0]}>{ option[0]}</label>
             </div>
-            <div>
+            <div className='radio-button'>
                 <input type="radio"
                     value={option[1]}
                     checked={userOption === option[1]}
@@ -54,7 +54,7 @@ export default function QuesBox(props) {
                 />
                 <label for={option[1]}>{option[1]}</label>
             </div>
-            <div>
+            <div className='radio-button'>
                 <input type="radio"
                     value={option[2]}
                     checked={userOption === option[2]}
@@ -63,7 +63,7 @@ export default function QuesBox(props) {
                 />
                 <label for={option[2]}>{ option[2]}</label>
             </div>
-            <div>
+            <div className='radio-button'>
                 <input type="radio"
                     value={option[3]}
                     checked={userOption === option[3]}
@@ -74,7 +74,8 @@ export default function QuesBox(props) {
             </div>
             <div>
                 <br />
-            <button onClick={() => submitAns()}>Submit</button>
+            <button className="button"
+            onClick={() => submitAns()}>Submit</button>
             </div>            
         </div>
     )

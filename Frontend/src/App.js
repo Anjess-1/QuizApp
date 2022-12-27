@@ -2,7 +2,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import AdminDashboard from './component/admin-dashboard';
 import QuizTable from './component/admin-dashboard/quiz-table';
 import LoginForm from './component/admin/login-form';
-import style from './app.css';
+import './app.css';
 import LandingPage from './component/user/landing-page';
 import Game from './component/game';
 
