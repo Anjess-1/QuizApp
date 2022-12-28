@@ -9,7 +9,7 @@ exports.createQuestion = (req, res, next) => {
             level: req.body.level,
             option: req.body.option,
             answer: req.body.answer,
-            adminId: req.body.adminId,
+            adminId: req.body.locals.jwtpayload.adminId,
             subject: req.body.subject
         })
         question.save()
