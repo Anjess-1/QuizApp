@@ -43,32 +43,29 @@ export default function Game() {
     }
 
     const checkGameCondition = () => {
-        if (difficultyLevel > 0 && difficultyLevel <= 10) {
-            if (quesNum <= 10)
-                return true;
-        } else {
+        if (difficultyLevel <= 0 || difficultyLevel > 10 || quesNum > 10) {
             if (!isScoreSave) {
-                let header = {
+                let headers = {
                     "Content-Type": 'application/json;charset=utf-8',
                     "Access-Control-Allow-Origin": "*",
                     "jwt": sessionStorage.getItem('access-token')
                 }
                 let payload = {
                     "score": score,
-                    "quizId": sessionStorage.getItem(),
+                    "quizId": sessionStorage.getItem('quizId'),
                     "quesAttempted": quesNum
                 }
-                axios.post(`http://localhost:3001/user/postScore`, payload, { header })
+                axios.post(`https://3.108.254.239:3000/user/postScore`, payload, { headers })
                     .then((response) => {
-                        console.log(payload.score)
-                        console.log(response)
                     })
                 setIsScoreSave(true)
             }
             return false;
         }
+        return true;
 
     }
+
     return (
         <div>
             <div><ScoreBox
@@ -80,7 +77,7 @@ export default function Game() {
             <div>
                 {checkGameCondition() ?
                     <QuesBox
-                        level={5}
+                        level={difficultyLevel}
                         markCorrectAns={markCorrectAns}
                         markIncorrectAns={markIncorrectAns}
                     /> : <div>

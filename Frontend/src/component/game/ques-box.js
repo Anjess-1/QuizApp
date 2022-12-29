@@ -20,7 +20,7 @@ export default function QuesBox(props) {
                 setAnswer(response.data.data[0].answer)
                 setOption(response.data.data[0].option)
             })
-    }, [])
+    }, [props.level])
 
     const handleChange = (e) => {
         console.log(e.target.value)
